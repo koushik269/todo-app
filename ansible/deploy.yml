@@ -1,0 +1,31 @@
+---
+- hosts: web_servers
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: Update APT Package
+      apt:
+        update_cache: yes
+    - name: Install Python3-pip
+      apt:
+        name: python3-pip
+        state: present
+    - name: Install docker SDK python
+      pip:
+        name:
+          - docker
+          - requests
+        state: present
+                
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+    - name: Run to-do app container
+      docker_container:
+        name: todo-app
+        image: koushik666/todo-app
+        state: started
+        ports:
+          - "80:80"
