@@ -1,8 +1,8 @@
 {
   "version": 4,
   "terraform_version": "1.11.2",
-  "serial": 1,
-  "lineage": "90b00eb1-5c78-1846-fc59-2c47af5e6d06",
+  "serial": 2,
+  "lineage": "9db70f6d-fe14-d300-95cd-08af83f62dce",
   "outputs": {},
   "resources": [
     {
@@ -43,7 +43,7 @@
                 "firewall": false,
                 "gw": "10.69.69.1",
                 "gw6": "",
-                "hwaddr": "BC:24:11:33:41:AB",
+                "hwaddr": "BC:24:11:4D:44:CE",
                 "ip": "10.69.69.30/24",
                 "ip6": "",
                 "mtu": "",
@@ -80,7 +80,7 @@
             "tty": 2,
             "unique": false,
             "unprivileged": true,
-            "unused": null,
+            "unused": [],
             "vmid": 0
           },
           "sensitive_attributes": [
