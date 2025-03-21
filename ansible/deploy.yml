@@ -26,6 +26,7 @@
       docker_container:
         name: todo-app
         image: koushik666/todo-app
+        pull: true  
         state: started
         ports:
           - "80:80"
