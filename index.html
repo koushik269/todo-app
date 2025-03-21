@@ -5,27 +5,183 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        #todo-list { list-style-type: none; }
-        .completed { text-decoration: line-through; }
+        /* General page styling */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Heading styling */
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        /* Input field styling */
+        #new-task {
+            padding: 10px;
+            width: 70%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Add button styling */
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* To-do list styling */
+        #todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #todo-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #todo-list li:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Completed tasks styling */
+        #todo-list li.completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        /* Delete button styling within list items */
+        #todo-list li button {
+            opacity: 0;
+            transition: opacity 0.3s;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        #todo-list li:hover button {
+            opacity: 1;
+        }
+
+        #todo-list li button:hover {
+            background-color: #d32f2f;
+        }
     </style>
 </head>
 <body>
-    <h1>My New To-Do List</h1>
-    <input type="text" id="new-task" placeholder="Add a new Updated task">
+    <h1>To-Do List</h1>
+    <input type="text" id="new-task" placeholder="Add a new task" autofocus>
     <button onclick="addTask()">Add</button>
     <ul id="todo-list"></ul>
     <script>
-        function addTask() {
-            const task = document.getElementById('new-task').value;
-            if (task) {
+        // Array to store tasks
+        let tasks = [];
+
+        // Render the task list
+        function render() {
+            const todoList = document.getElementById('todo-list');
+            todoList.innerHTML = '';
+            tasks.forEach((task, index) => {
                 const li = document.createElement('li');
-                li.textContent = task;
-                li.onclick = () => li.classList.toggle('completed');
-                document.getElementById('todo-list').appendChild(li);
+                li.textContent = task.text;
+                if (task.completed) {
+                    li.classList.add('completed');
+                }
+                li.addEventListener('click', () => toggleCompleted(index));
+                li.addEventListener('dblclick', () => editTask(index));
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'x';
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    deleteTask(index);
+                });
+                li.appendChild(deleteBtn);
+                todoList.appendChild(li);
+            });
+        }
+
+        // Add a new task
+        function addTask() {
+            const newTaskText = document.getElementById('new-task').value.trim();
+            if (newTaskText) {
+                tasks.push({ text: newTaskText, completed: false });
+                render();
+                saveToLocalStorage();
                 document.getElementById('new-task').value = '';
             }
         }
+
+        // Toggle task completion
+        function toggleCompleted(index) {
+            tasks[index].completed = !tasks[index].completed;
+            render();
+            saveToLocalStorage();
+        }
+
+        // Delete a task
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+            render();
+            saveToLocalStorage();
+        }
+
+        // Edit a task
+        function editTask(index) {
+            const newText = prompt('Edit task:', tasks[index].text);
+            if (newText !== null) {
+                tasks[index].text = newText.trim();
+                render();
+                saveToLocalStorage();
+            }
+        }
+
+        // Save tasks to local storage
+        function saveToLocalStorage() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // Load tasks from local storage
+        function loadFromLocalStorage() {
+            const storedTasks = localStorage.getItem('tasks');
+            if (storedTasks) {
+                tasks = JSON.parse(storedTasks);
+            } else {
+                tasks = [];
+            }
+            render();
+        }
+
+        // Load tasks when the page loads
+        window.addEventListener('load', loadFromLocalStorage);
+
+        // Add task when Enter key is pressed
+        document.getElementById('new-task').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
     </script>
 </body>
 </html>
