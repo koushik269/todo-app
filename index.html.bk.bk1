@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive To-Do List</title>
+    <title>To-Do List</title>
     <style>
         /* General page styling */
         body {
@@ -13,28 +13,21 @@
             padding: 20px;
         }
 
-        /* Heading styling with bounce animation */
+        /* Heading styling */
         h1 {
             color: #333;
             text-align: center;
-            animation: bounceIn 1s ease-in-out;
         }
 
-        /* Input field styling with glow effect */
+        /* Input field styling */
         #new-task {
             padding: 10px;
             width: 70%;
             border: 1px solid #ccc;
             border-radius: 5px;
-            transition: all 0.3s;
         }
 
-        #new-task:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-        }
-
-        /* Add button styling with pulse effect */
+        /* Add button styling */
         button {
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -42,13 +35,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s;
         }
 
         button:hover {
             background-color: #45a049;
-            transform: scale(1.1);
-            animation: pulse 0.5s infinite;
         }
 
         /* To-do list styling */
@@ -67,28 +57,22 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s;
-            animation: slideIn 0.5s ease-in-out;
         }
 
-        /* Enhanced hover effect for list items */
         #todo-list li:hover {
-            background-color: #e0f7fa;
-            transform: scale(1.05) rotate(1deg);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
         }
 
         /* Completed tasks styling */
         #todo-list li.completed {
             text-decoration: line-through;
             color: #888;
-            opacity: 0.7;
         }
 
-        /* Delete button with spin hover */
+        /* Delete button styling within list items */
         #todo-list li button {
             opacity: 0;
-            transition: all 0.3s;
+            transition: opacity 0.3s;
             background-color: #f44336;
             color: white;
             border: none;
@@ -103,48 +87,11 @@
 
         #todo-list li button:hover {
             background-color: #d32f2f;
-            transform: rotate(360deg);
-        }
-
-        /* Icon styling with bounce on hover */
-        .icon {
-            width: 25px;
-            height: 25px;
-            margin-right: 10px;
-            transition: transform 0.3s;
-        }
-
-        #todo-list li:hover .icon {
-            transform: scale(1.3) rotate(10deg);
-            animation: bounce 0.5s;
-        }
-
-        /* Animations */
-        @keyframes bounceIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            60% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
-    <h1>Interactive To-Do List</h1>
+    <h1>To-Do List</h1>
     <input type="text" id="new-task" placeholder="Add a new task" autofocus>
     <button onclick="addTask()">Add</button>
     <ul id="todo-list"></ul>
@@ -158,7 +105,7 @@
             todoList.innerHTML = '';
             tasks.forEach((task, index) => {
                 const li = document.createElement('li');
-                li.innerHTML = `<img src="https://img.icons8.com/ios/50/000000/task.png" class="icon" alt="task icon">${task.text}`;
+                li.textContent = task.text;
                 if (task.completed) {
                     li.classList.add('completed');
                 }
