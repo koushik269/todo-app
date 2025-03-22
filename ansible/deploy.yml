@@ -1,5 +1,5 @@
 ---
-- hosts: web_servers,web_servers2
+- hosts: web_servers,web_servers2,web_servers3
   become: yes
   vars:
     ansible_python_interpreter: /usr/bin/python3
