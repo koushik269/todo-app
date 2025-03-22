@@ -2,7 +2,7 @@
   "version": 4,
   "terraform_version": "1.11.2",
   "serial": 1,
-  "lineage": "ea72f74b-48ab-e6cc-c1a3-9b12f173e17d",
+  "lineage": "90b00eb1-5c78-1846-fc59-2c47af5e6d06",
   "outputs": {},
   "resources": [
     {
@@ -43,8 +43,8 @@
                 "firewall": false,
                 "gw": "10.69.69.1",
                 "gw6": "",
-                "hwaddr": "BC:24:11:E6:C8:9B",
-                "ip": "10.69.69.37/24",
+                "hwaddr": "BC:24:11:33:41:AB",
+                "ip": "10.69.69.30/24",
                 "ip6": "",
                 "mtu": "",
                 "name": "eth0",

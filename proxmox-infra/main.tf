@@ -30,7 +30,7 @@ resource "proxmox_lxc" "web_server" {
   network {
     name   = "eth0"
     bridge = "vmbr0"
-    ip     = "10.69.69.30/24"
+    ip     = "10.69.69.37/24"
     gw = "10.69.69.1"
   }
   rootfs    {
